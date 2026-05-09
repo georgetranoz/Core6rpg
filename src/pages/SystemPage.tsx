@@ -117,14 +117,14 @@ export function SystemPage() {
       </section>
 
       <section className="content-section">
-        <h2>Level Up. Or Respec. Anytime.</h2>
+        <h2>Level Up. Or Re-spec. Anytime.</h2>
         <p>
           Earn XP. Spend it however you want — buy stats, buy HP, buy new
           Disciplines, buy upgrades to existing ones.
         </p>
         <p>
           And here&apos;s the part most systems get wrong: with GM approval, you
-          can refund any XP and rebuild your Hero between sessions. No more
+          can refund any XP and re-spec your Hero between sessions. No more
           &quot;bored barbarian during a city-intrigue session.&quot; Heroes
           adapt with the story, not against it.
         </p>

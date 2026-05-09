@@ -5,8 +5,8 @@ import { usePageMeta } from '../hooks/usePageMeta';
 
 export function HomePage() {
   usePageMeta(
-    'Core6 RPG: Classless Modern RPG System',
-    'Core6 RPG is a classless modern tabletop RPG: fast d6 dice pools, one-roll combat, and Heroes ready in minutes. Fun, fast, flexible across any genre — free Hero\'s Handbook PDF.',
+    'Core6 RPG: Universal Modern RPG System',
+    'Core6 RPG is a universal modern tabletop RPG: fast d6 dice pools, one-roll combat, and Heroes ready in minutes. Fun, fast, flexible across any genre — free Hero\'s Handbook PDF.',
   );
 
   return (
@@ -47,7 +47,7 @@ export function HomePage() {
               </span>
             </h1>
             <p className="hero-home__lead">
-              A fast, flexible, classless d6 RPG system. Build a legend in five
+              A fast, flexible, universal d6 RPG system. Build a legend in five
               minutes, drop the bookkeeping, and focus on the action.
             </p>
             <div className="cta-row">
@@ -81,7 +81,7 @@ export function HomePage() {
               </h3>
               <p>
                 No bookkeeping treadmills. No spell slots, no rations to count,
-                no rolling 1s for HP. Every roll is one roll — attack and damage
+                no rolling 1&apos;s for HP. Every roll is one roll — attack and damage
                 in the same toss. <em className="game-term">Heroes</em> go first.
                 Combat resolves in minutes, not half a session.
               </p>

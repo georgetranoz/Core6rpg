@@ -3,6 +3,7 @@ import { Layout } from './components/Layout';
 import { AboutPage } from './pages/AboutPage';
 import { AppPage } from './pages/AppPage';
 import { BooksPage } from './pages/BooksPage';
+import { C6oglPage } from './pages/C6oglPage';
 import { CreatorsPage } from './pages/CreatorsPage';
 import { FaqPage } from './pages/FaqPage';
 import { HomePage } from './pages/HomePage';
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="universes" element={<UniversesPage />} />
         <Route path="app" element={<AppPage />} />
         <Route path="creators" element={<CreatorsPage />} />
+        <Route path="c6ogl" element={<C6oglPage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="faq" element={<FaqPage />} />
         <Route path="*" element={<NotFoundPage />} />

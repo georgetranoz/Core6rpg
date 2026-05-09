@@ -1,7 +1,7 @@
 {
   "name": "Core6 RPG",
   "short_name": "Core6",
-  "description": "Core6 RPG — a classless modern tabletop RPG. Fun, fast, and flexible across any genre.",
+  "description": "Core6 RPG — a universal modern tabletop RPG. Fun, fast, and flexible across any genre.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

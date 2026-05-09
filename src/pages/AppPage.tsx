@@ -5,7 +5,7 @@ import { usePageMeta } from '../hooks/usePageMeta';
 export function AppPage() {
   usePageMeta(
     'Core6 Hero Sheet — Companion App',
-    'Free mobile-first Core6 character sheet: wizard, dice pools, Discipline browser, offline — no accounts. GM mode coming soon.',
+    'Free mobile-first Core6 character sheet: wizard, dice pools, Discipline browser, offline. GM mode coming soon.',
   );
 
   const appJsonLd = useMemo(
@@ -23,7 +23,7 @@ export function AppPage() {
           priceCurrency: 'USD',
         },
         description:
-          'Companion character sheet for Core6 RPG — build Heroes, track combat, roll dice pools, browse Disciplines. Local-first; no subscription.',
+          'Companion character sheet for Core6 RPG — build Heroes, track combat, roll dice pools, browse Disciplines.',
         url: siteOrigin ? `${siteOrigin}/app` : undefined,
       }),
     [],
@@ -57,7 +57,7 @@ export function AppPage() {
           </li>
           <li>
             Browse all 80+ <em className="game-term">Disciplines</em> with full
-            upgrade trees. Buy, refund, respec instantly — never lose track of XP.
+            upgrade trees. Buy, refund, re-spec instantly — never lose track of XP.
           </li>
           <li>
             Roll your dice pools with one tap. Hits highlighted, totals shown.
@@ -66,7 +66,7 @@ export function AppPage() {
             Switch between multiple Heroes instantly — perfect if you run more than
             one.
           </li>
-          <li>No accounts. No tracking. No subscription. Your data stays on your device.</li>
+          <li>Works offline once installed. Install to your home screen for one-tap launch.</li>
         </ul>
         <p style={{ marginTop: '1.5rem' }}>
           {heroSheetLiveUrl ? (
@@ -95,6 +95,22 @@ export function AppPage() {
             </>
           )}
         </p>
+      </section>
+
+      <section className="content-section">
+        <h2>Save your Hero — sign in</h2>
+        <div className="callout callout--warning">
+          <p>
+            <strong>Heads up:</strong> without an account, your Hero may
+            disappear due to your phone&apos;s operating-system storage cleanup.
+            Local data also doesn&apos;t move between devices.
+          </p>
+          <p>
+            <strong>To save your Hero:</strong> sign in with Google, Apple, or
+            Microsoft. Your Heroes get backed up to the cloud, sync between
+            devices, and become visible to your GM during live sessions.
+          </p>
+        </div>
       </section>
 
       <section className="content-section">

@@ -18,7 +18,15 @@ export function UniversesPage() {
       </p>
 
       <section className="setting-block">
-        <div className="setting-visual" aria-hidden="true" />
+        <div className="setting-visual">
+          <img
+            src="/setting-lumenos.jpg"
+            alt="Lumenos City — gritty neon-lit cyberpunk combat in a rain-soaked Sydney alley"
+            loading="lazy"
+            width={1600}
+            height={500}
+          />
+        </div>
         <h2>Lumenos City — Modern. Cyberpunk-tinged. Supernatural.</h2>
         <p>
           Modern-day Sydney, rebranded after the AI overlord&apos;s reset.
@@ -38,7 +46,15 @@ export function UniversesPage() {
       </section>
 
       <section className="setting-block">
-        <div className="setting-visual" aria-hidden="true" />
+        <div className="setting-visual">
+          <img
+            src="/setting-artos.jpg"
+            alt="The World of Artos — an elven archer and a human mage stand together amid ancient ruins"
+            loading="lazy"
+            width={1600}
+            height={500}
+          />
+        </div>
         <h2>The World of Artos — High Fantasy. Crumbling Empires.</h2>
         <p>
           The cycle of birth, death, and rebirth has been shattered. The Empire of
@@ -53,7 +69,15 @@ export function UniversesPage() {
       </section>
 
       <section className="setting-block">
-        <div className="setting-visual" aria-hidden="true" />
+        <div className="setting-visual">
+          <img
+            src="/setting-mythic.jpg"
+            alt="Mythic Bound — a mercenary, a neon-armoured hunter, and a vampire silhouette in a dim warehouse"
+            loading="lazy"
+            width={1600}
+            height={500}
+          />
+        </div>
         <h2>Mythic Bound — Near-future. Monster hunting. With consequences.</h2>
         <p>
           Your <em className="game-term">Hero</em> is a contractor for the Van

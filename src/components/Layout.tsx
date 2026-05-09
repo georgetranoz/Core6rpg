@@ -81,8 +81,8 @@ export function Layout() {
               className="brand-mark"
               src="/logo.png"
               alt=""
-              width={36}
-              height={36}
+              width={56}
+              height={56}
             />
             <span className="brand-text">Core6 RPG</span>
           </NavLink>
@@ -180,11 +180,13 @@ export function Layout() {
 
           <div className="footer-meta">
             <p>
-              <strong>Core6™</strong> — Fun, Fast, Flexible. Made in Australia by
-              Mango Dog Pty Ltd. © {new Date().getFullYear()} Mango Dog Pty Ltd.
-              Core6™.
+              <strong>Core6™</strong> — Fun, Fast, Flexible.
               <br />
-              World of Artos™, Lumenos City™, and Mythic Bound™ are trademarks.
+              Made in Australia by Mango Dog Pty Ltd. ©{' '}
+              {new Date().getFullYear()} Mango Dog Pty Ltd.
+              <br />
+              Core6™, World of Artos™, Lumenos City™, and Mythic Bound™ are
+              trademarks.
             </p>
             <nav className="footer-links" aria-label="Footer">
               <NavLink to="/system">The System</NavLink>
@@ -201,7 +203,7 @@ export function Layout() {
               <span aria-hidden="true">·</span>
               <NavLink to="/faq">FAQ</NavLink>
               <span aria-hidden="true">·</span>
-              <NavLink to="/creators#c6ogl">Open Game License</NavLink>
+              <NavLink to="/c6ogl">Open Game Licence</NavLink>
             </nav>
           </div>
         </div>
