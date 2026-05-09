@@ -1,0 +1,24 @@
+/** Set via `.env` (VITE_*) before launch; empty strings fall back to safe on-site anchors. */
+export const siteOrigin =
+  typeof window !== 'undefined' ? window.location.origin : '';
+
+export const handbookPdfUrl =
+  import.meta.env.VITE_HANDBOOK_PDF_URL?.trim() || '/books#handbook';
+
+/** Live Hero Sheet deployment URL — empty until you wire hosting (see App page). */
+export const heroSheetLiveUrl =
+  import.meta.env.VITE_HERO_SHEET_URL?.trim() || '';
+
+export const printStoreUrl =
+  import.meta.env.VITE_PRINT_STORE_URL?.trim() || '/books#handbook';
+
+/** GM Guide print/PDF — override when listings differ from the handbook store. */
+export const gmGuidePrintUrl =
+  import.meta.env.VITE_GM_GUIDE_PRINT_URL?.trim() || printStoreUrl;
+
+export const gmGuidePdfUrl =
+  import.meta.env.VITE_GM_GUIDE_PDF_URL?.trim() || '';
+
+export const lumenosUrl = 'https://www.LumenosCity.com';
+
+export const c6oglPdfUrl = import.meta.env.VITE_C6OGL_PDF_URL?.trim() || '';
