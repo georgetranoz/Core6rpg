@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { AboutPage } from './pages/AboutPage';
 import { AppPage } from './pages/AppPage';
@@ -6,6 +6,7 @@ import { BooksPage } from './pages/BooksPage';
 import { CreatorsPage } from './pages/CreatorsPage';
 import { FaqPage } from './pages/FaqPage';
 import { HomePage } from './pages/HomePage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import { SystemPage } from './pages/SystemPage';
 import { UniversesPage } from './pages/UniversesPage';
 
@@ -21,7 +22,7 @@ export default function App() {
         <Route path="creators" element={<CreatorsPage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="faq" element={<FaqPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

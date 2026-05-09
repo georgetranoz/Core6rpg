@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Target, Zap, Globe2 } from 'lucide-react';
 import { handbookPdfUrl } from '../config';
 import { usePageMeta } from '../hooks/usePageMeta';
 
@@ -22,8 +23,8 @@ export function HomePage() {
               <img
                 src="/handbook-cover.png"
                 alt="Core6 Hero's Handbook — dragon over crimson"
-                width={520}
-                height={780}
+                width={773}
+                height={1000}
                 fetchPriority="high"
               />
             </div>
@@ -69,7 +70,15 @@ export function HomePage() {
           <h2 id="pillars-heading">The Three Pillars</h2>
           <div className="pillar-grid">
             <article className="pillar-card">
-              <h3>🎯 Fun</h3>
+              <h3>
+                <Target
+                  size={20}
+                  color="var(--accent)"
+                  aria-hidden="true"
+                  style={{ verticalAlign: '-3px', marginRight: 8 }}
+                />
+                Fun
+              </h3>
               <p>
                 No bookkeeping treadmills. No spell slots, no rations to count,
                 no rolling 1s for HP. Every roll is one roll — attack and damage
@@ -78,7 +87,15 @@ export function HomePage() {
               </p>
             </article>
             <article className="pillar-card">
-              <h3>⚡ Fast</h3>
+              <h3>
+                <Zap
+                  size={20}
+                  color="var(--accent)"
+                  aria-hidden="true"
+                  style={{ verticalAlign: '-3px', marginRight: 8 }}
+                />
+                Fast
+              </h3>
               <p>
                 Three stats. Two starting{' '}
                 <em className="game-term">Disciplines</em>.{' '}
@@ -89,7 +106,15 @@ export function HomePage() {
               </p>
             </article>
             <article className="pillar-card">
-              <h3>🌐 Flexible</h3>
+              <h3>
+                <Globe2
+                  size={20}
+                  color="var(--accent)"
+                  aria-hidden="true"
+                  style={{ verticalAlign: '-3px', marginRight: 8 }}
+                />
+                Flexible
+              </h3>
               <p>
                 The same Core6 engine runs high fantasy, cyberpunk, super hero,
                 space opera, vampire, or cosmic horror. Skin a Mental ranged
@@ -110,22 +135,22 @@ export function HomePage() {
           Four formats, one line — same Heroes, the same rules.
         </p>
         <div className="card-grid card-grid--4">
-          <article className="use-card">
+          <Link to="/books#handbook" className="use-card">
             <h3>Core6 RPG</h3>
             <p>Story campaigns. The classic GM-led tabletop experience.</p>
-          </article>
-          <article className="use-card">
+          </Link>
+          <Link to="/books#adventures" className="use-card">
             <h3>Core6 Adventures</h3>
             <p>Solo &amp; co-op. Deep campaigns without needing a GM.</p>
-          </article>
-          <article className="use-card">
+          </Link>
+          <Link to="/books#tactics" className="use-card">
             <h3>Core6 Tactics</h3>
             <p>Squad battler PvP. Team vs. team, fast and lethal.</p>
-          </article>
-          <article className="use-card">
+          </Link>
+          <Link to="/books#battlegrounds" className="use-card">
             <h3>Core6 Battlegrounds</h3>
             <p>Mass combat. Warhammer-scale battles, none of the bloat.</p>
-          </article>
+          </Link>
         </div>
       </section>
 

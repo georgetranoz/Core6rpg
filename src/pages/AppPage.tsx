@@ -80,13 +80,14 @@ export function AppPage() {
             </a>
           ) : (
             <>
-              <span
+              <button
+                type="button"
                 className="btn btn--primary"
+                disabled
                 style={{ opacity: 0.55, cursor: 'not-allowed' }}
-                aria-disabled="true"
               >
                 Open the app →
-              </span>
+              </button>
               <span className="trust-strip" style={{ display: 'block', marginTop: '0.75rem' }}>
                 Public hosting URL not set yet — run the Hero Sheet locally from the
                 Core6 repo, or subscribe below for launch news.

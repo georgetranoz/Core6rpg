@@ -40,13 +40,14 @@ export function CreatorsPage() {
               Read the C6OGL
             </a>
           ) : (
-            <span
+            <button
+              type="button"
               className="btn btn--primary"
+              disabled
               style={{ opacity: 0.55, cursor: 'not-allowed' }}
-              aria-disabled="true"
             >
               Read the C6OGL
-            </span>
+            </button>
           )}
           <a className="btn btn--secondary" href="#newsletter">
             Submit your supplement for community review

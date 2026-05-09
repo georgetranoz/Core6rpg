@@ -189,6 +189,11 @@ export function BooksPage() {
               Craft villains your <em className="game-term">Heroes</em> will love
               to hate. Less homework, more play — your escape from the GM grind.
             </li>
+            <li>
+              Includes the Mission Blueprint generator, NPC and faction
+              builders, ready-to-run encounter tables, and session prep
+              templates — everything you need to run Core6 at the table.
+            </li>
           </ul>
           <p className="book-meta">
             ISBN 978-1-7637735-7-8 · By George Tran · Infinite Universes,

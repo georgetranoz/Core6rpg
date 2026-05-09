@@ -5,7 +5,8 @@ import {
   useState,
 } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { siteOrigin } from '../config';
+import { Menu, X, Download } from 'lucide-react';
+import { handbookPdfUrl, newsletterActionUrl, siteOrigin } from '../config';
 
 const navItems = [
   { to: '/system', label: 'The System' },
@@ -22,6 +23,7 @@ export function Layout() {
   const [newsletterStatus, setNewsletterStatus] = useState<
     'idle' | 'thanks'
   >('idle');
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   const orgJsonLd = useMemo(
     () =>
@@ -41,11 +43,28 @@ export function Layout() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setIsNavOpen(false); // close drawer on route change
   }, [location.pathname]);
 
+  // Lock body scroll when the mobile drawer is open so background doesn't scroll under it.
+  useEffect(() => {
+    if (isNavOpen) {
+      const original = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = original;
+      };
+    }
+  }, [isNavOpen]);
+
   function onNewsletterSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setNewsletterStatus('thanks');
+    // If a provider URL is configured, let the form submit normally to that endpoint.
+    // Otherwise fall back to the local "thanks" state used in dev.
+    if (!newsletterActionUrl) {
+      e.preventDefault();
+      setNewsletterStatus('thanks');
+    }
+    // When configured, the browser's native form submission handles the POST.
   }
 
   return (
@@ -65,9 +84,14 @@ export function Layout() {
               width={36}
               height={36}
             />
-            Core6 RPG
+            <span className="brand-text">Core6 RPG</span>
           </NavLink>
-          <nav className="nav-main" aria-label="Primary">
+
+          <nav
+            id="primary-nav"
+            className={`nav-main ${isNavOpen ? 'open' : ''}`}
+            aria-label="Primary"
+          >
             {navItems.map(({ to, label }) => (
               <NavLink
                 key={to}
@@ -78,8 +102,35 @@ export function Layout() {
               </NavLink>
             ))}
           </nav>
+
+          <div className="header-actions">
+            <a
+              className="btn btn--primary btn--small header-cta"
+              href={handbookPdfUrl}
+            >
+              <Download size={14} />
+              Free PDF
+            </a>
+            <button
+              type="button"
+              className="nav-toggle"
+              aria-controls="primary-nav"
+              aria-expanded={isNavOpen}
+              aria-label={isNavOpen ? 'Close menu' : 'Open menu'}
+              onClick={() => setIsNavOpen(o => !o)}
+            >
+              {isNavOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
       </header>
+
+      {/* Backdrop for the mobile drawer */}
+      <div
+        className={`nav-overlay ${isNavOpen ? 'open' : ''}`}
+        aria-hidden="true"
+        onClick={() => setIsNavOpen(false)}
+      />
 
       <main className="main-outlet">
         <Outlet />
@@ -94,7 +145,17 @@ export function Layout() {
               and the occasional behind-the-scenes designer note. About one email
               a month. No spam.
             </p>
-            <form className="newsletter-form" onSubmit={onNewsletterSubmit}>
+            <form
+              className="newsletter-form"
+              onSubmit={onNewsletterSubmit}
+              {...(newsletterActionUrl
+                ? {
+                    action: newsletterActionUrl,
+                    method: 'post',
+                    target: '_blank',
+                  }
+                : {})}
+            >
               <label htmlFor="newsletter-email" className="sr-only">
                 Email
               </label>
@@ -110,7 +171,7 @@ export function Layout() {
                 Subscribe
               </button>
             </form>
-            {newsletterStatus === 'thanks' ? (
+            {newsletterStatus === 'thanks' && !newsletterActionUrl ? (
               <p style={{ marginTop: '1rem', color: 'var(--accent)' }}>
                 Thanks — you&apos;re on the list.
               </p>
@@ -121,8 +182,9 @@ export function Layout() {
             <p>
               <strong>Core6™</strong> — Fun, Fast, Flexible. Made in Australia by
               Mango Dog Pty Ltd. © {new Date().getFullYear()} Mango Dog Pty Ltd.
-              Core6™, World of Artos™, Lumenos City™, and Mythic Bound™ are
-              trademarks.
+              Core6™.
+              <br />
+              World of Artos™, Lumenos City™, and Mythic Bound™ are trademarks.
             </p>
             <nav className="footer-links" aria-label="Footer">
               <NavLink to="/system">The System</NavLink>

@@ -33,6 +33,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Stop iOS auto-resizing text in landscape, which breaks our clamp() sizing. */
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -44,6 +46,8 @@ body {
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
+  /* Defensive guard against any element accidentally introducing horizontal scroll. */
+  overflow-x: hidden;
 }
 
 h1,
@@ -97,6 +101,9 @@ em.game-term {
   max-width: 1120px;
   margin: 0 auto;
   padding: 0.85rem 1.25rem;
+  /* Respect iOS notch / Dynamic Island safe areas in landscape. */
+  padding-left: max(1.25rem, env(safe-area-inset-left));
+  padding-right: max(1.25rem, env(safe-area-inset-right));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -209,6 +216,12 @@ main.main-outlet {
   font-size: 0.88rem;
   color: var(--muted);
   line-height: 1.6;
+  text-align: center;
+}
+
+.footer-meta p {
+  max-width: 60ch;
+  margin: 0 auto;
 }
 
 .footer-meta strong {
@@ -221,6 +234,7 @@ main.main-outlet {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem 0;
+  justify-content: center;
 }
 
 .footer-links a {
@@ -384,8 +398,9 @@ main.main-outlet {
   width: 100%;
   height: auto;
   border-radius: 11px;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
+  /* No aspect-ratio / object-fit — let the cover render at its natural
+     773×1000 ratio so nothing gets clipped. The frame's 3px padding
+     and rounded corners follow the image. */
 }
 
 .hero-home__eyebrow {
@@ -573,7 +588,8 @@ main.main-outlet {
 }
 
 @media (min-width: 640px) {
-  .card-grid--2 {
+  .card-grid--2,
+  .card-grid--4 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -585,15 +601,34 @@ main.main-outlet {
 }
 
 .use-card {
+  display: block;
   padding: 1.5rem;
   border-radius: var(--radius);
   background: var(--surface);
   border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    border-color 0.18s,
+    transform 0.18s,
+    box-shadow 0.18s;
+}
+
+.use-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  text-decoration: none;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
 .use-card h3 {
   margin: 0 0 0.35rem;
   font-size: 1.05rem;
+  color: var(--text);
+}
+
+.use-card:hover h3 {
+  color: var(--accent);
 }
 
 .use-card p {
@@ -675,12 +710,16 @@ main.main-outlet {
 .book-cover--image {
   padding: 0;
   overflow: hidden;
+  /* Override the 2/3 fallback aspect-ratio. All published covers are
+     773×1000 (~3:4). Letting the parent size to the image avoids
+     clipping the title and dragon. */
+  aspect-ratio: auto;
 }
 
 .book-cover--image img {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
 }
 
 .book-card__body h3 {
@@ -786,4 +825,373 @@ main.main-outlet {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ===================================================================
+   Accessibility: keyboard focus rings
+   =================================================================== */
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.btn:focus-visible,
+.nav-main a:focus-visible,
+.brand:focus-visible {
+  outline-offset: 4px;
+}
+
+.newsletter-form input[type='email']:focus-visible {
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+/* ===================================================================
+   Header CTA + mobile hamburger nav
+   ===================================================================
+   On wide screens the nav and CTA sit inline. On narrow screens
+   (< 880px) the nav collapses behind a hamburger button and the CTA
+   shrinks; the drawer slides in from the right.
+   =================================================================== */
+
+.site-header__inner {
+  /* allow space for the persistent CTA */
+  gap: 0.75rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.header-cta {
+  white-space: nowrap;
+}
+
+.nav-toggle {
+  display: none;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.45rem 0.55rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 45;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s;
+}
+
+.nav-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 879px) {
+  .nav-main {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(80vw, 320px);
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 4.5rem 1rem 1.5rem;
+    box-shadow: -24px 0 60px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%);
+    transition: transform 0.22s ease-out;
+    z-index: 50;
+    overflow-y: auto;
+  }
+
+  .nav-main.open {
+    transform: translateX(0);
+  }
+
+  .nav-main a {
+    display: block;
+    padding: 0.85rem 0.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  .nav-main a:hover,
+  .nav-main a.active {
+    background: var(--surface-2);
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  .nav-overlay {
+    display: block;
+  }
+
+  /* On mobile the header CTA shrinks to icon + tight label so it still fits. */
+  .header-cta {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.82rem;
+  }
+}
+
+/* ===================================================================
+   404 page
+   =================================================================== */
+
+.notfound {
+  text-align: center;
+  padding: 6rem 1.25rem 4rem;
+}
+
+.notfound h1 {
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  margin: 0 0 0.75rem;
+}
+
+.notfound p {
+  color: var(--muted);
+  margin: 0 auto 1.5rem;
+  max-width: 38rem;
+}
+
+/* ===================================================================
+   Note: .hero-home__backdrop-img reuses /handbook-cover.png as the
+   blurred backdrop. If the cover artwork ever changes, double-check
+   the focal point (currently background-position: 55% 35%) still
+   frames the dragon nicely.
+   =================================================================== */
+
+/* ===================================================================
+   Mobile polish — touch targets, narrow widths, landscape, safe areas
+   ===================================================================
+   All of these are responsive layer fixes; no component code changes.
+   Targets phones 320–480px, small tablets 480–768px, landscape phones,
+   and devices with notches / home indicators.
+   =================================================================== */
+
+/* Footer respects bottom safe area on iPhones with home indicator. */
+.footer-site {
+  padding-left: max(1.25rem, env(safe-area-inset-left));
+  padding-right: max(1.25rem, env(safe-area-inset-right));
+  padding-bottom: max(2rem, env(safe-area-inset-bottom));
+}
+
+/* Page-inner respects horizontal safe-area on iPhones in landscape. */
+.page-inner {
+  padding-left: max(1.25rem, env(safe-area-inset-left));
+  padding-right: max(1.25rem, env(safe-area-inset-right));
+}
+
+/* Bigger touch targets on small CTAs (Apple HIG ≥ 44px, Material ≥ 48px). */
+.btn--small {
+  min-height: 40px;
+}
+
+/* Touch-mode: bump default buttons to 44px+ */
+@media (hover: none) and (pointer: coarse) {
+  .btn {
+    min-height: 44px;
+  }
+  .btn--small {
+    min-height: 42px;
+  }
+  .nav-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* === Header on very narrow screens === */
+@media (max-width: 420px) {
+  /* Hide the "Core6 RPG" wordmark visually (logo alone identifies the
+     brand at this width) but keep it readable to screen readers. */
+  .brand-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .header-cta {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.78rem;
+  }
+  .site-header__inner {
+    padding: 0.7rem 1rem;
+    gap: 0.5rem;
+  }
+}
+
+/* === Book cards: cap cover size on narrow viewports === */
+@media (max-width: 719px) {
+  .book-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .book-cover {
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* === Hero section on phones === */
+@media (max-width: 599px) {
+  /* Reduce min-height so content above the fold isn't pushed off-screen
+     on small portrait phones. Cover frame still anchors the visual. */
+  .hero-home {
+    min-height: auto;
+    padding-top: clamp(1.5rem, 5vw, 3rem);
+    padding-bottom: clamp(2rem, 5vw, 3.5rem);
+  }
+  .hero-home__cover-frame {
+    transform: rotate(-1.5deg); /* gentler tilt for tighter spaces */
+  }
+  /* Constrain the cover so it doesn't dominate phone screens. */
+  .hero-home__visual {
+    max-width: 240px;
+  }
+}
+
+/* Landscape phones — hero shouldn't fill the entire viewport. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-home {
+    min-height: auto;
+    padding-top: 1.25rem;
+    padding-bottom: 1.5rem;
+  }
+  .hero-home__inner {
+    grid-template-columns: minmax(160px, 0.7fr) 1.3fr;
+    gap: 1.25rem;
+  }
+  .hero-home__copy {
+    order: 0;
+  }
+  .hero-home__visual {
+    max-width: 180px;
+    justify-self: end;
+  }
+  .hero-home__title {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  }
+}
+
+/* === Pillars section: tighter padding on phones === */
+@media (max-width: 599px) {
+  .pillars {
+    padding: 2.5rem 1rem;
+  }
+  .pillar-card {
+    padding: 1.35rem;
+  }
+  .pillar-card h3 {
+    font-size: 1.2rem;
+  }
+}
+
+/* === Page content padding on phones === */
+@media (max-width: 599px) {
+  .page-inner {
+    padding-top: 1.75rem;
+    padding-bottom: 3rem;
+  }
+  .page-title {
+    font-size: clamp(1.65rem, 6vw, 2.25rem);
+  }
+}
+
+/* === Newsletter form on narrow viewports === */
+@media (max-width: 480px) {
+  .newsletter {
+    padding: 1.5rem 1.25rem;
+  }
+  .newsletter h2 {
+    font-size: 1.45rem;
+  }
+  .newsletter-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .newsletter-form input[type='email'] {
+    width: 100%;
+  }
+  .newsletter-form button {
+    width: 100%;
+  }
+}
+
+/* === Settings (universes) page on phones === */
+@media (max-width: 599px) {
+  .setting-block h2 {
+    font-size: 1.35rem;
+  }
+}
+
+/* === Use-card transform should be subtle on touch (no hover lift). === */
+@media (hover: none) {
+  .use-card:hover {
+    transform: none;
+  }
+  .use-card:active {
+    transform: scale(0.99);
+  }
+}
+
+/* === Closing pitch CTA stack on phones === */
+@media (max-width: 480px) {
+  .closing-pitch {
+    padding: 2.5rem 1rem 1rem;
+  }
+  .closing-pitch h2 {
+    font-size: clamp(1.45rem, 5vw, 1.85rem);
+  }
+  .closing-pitch .cta-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .closing-pitch .btn {
+    width: 100%;
+  }
+}
+
+/* === Reduce motion preference === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

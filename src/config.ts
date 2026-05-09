@@ -22,3 +22,14 @@ export const gmGuidePdfUrl =
 export const lumenosUrl = 'https://www.LumenosCity.com';
 
 export const c6oglPdfUrl = import.meta.env.VITE_C6OGL_PDF_URL?.trim() || '';
+
+/**
+ * Newsletter form action URL. Plug in any provider that accepts a standard
+ * HTML form POST with an `email` field — e.g. Buttondown
+ * (https://buttondown.email/api/emails/embed-subscribe/<slug>),
+ * ConvertKit, or Mailchimp's embedded-form action URL.
+ *
+ * Leave unset for local dev — the form falls back to a no-op "thanks" state.
+ */
+export const newsletterActionUrl =
+  import.meta.env.VITE_NEWSLETTER_ACTION_URL?.trim() || '';

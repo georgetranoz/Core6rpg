@@ -1,0 +1,24 @@
+{
+  "name": "Core6 RPG",
+  "short_name": "Core6",
+  "description": "Core6 RPG — a classless modern tabletop RPG. Fun, fast, and flexible across any genre.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#070507",
+  "theme_color": "#070507",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
