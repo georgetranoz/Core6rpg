@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import {
   gmGuidePdfUrl,
   gmGuidePrintUrl,
@@ -60,7 +61,7 @@ export function BooksPage() {
             isbn: '978-1-9235970-0-6',
             bookFormat: 'https://schema.org/EBook',
             inLanguage: 'en',
-            url: siteOrigin ? `${siteOrigin}/books#adventures` : undefined,
+            url: siteOrigin ? `${siteOrigin}/core6adventure` : undefined,
             image: siteOrigin ? `${siteOrigin}/adventures-cover.png` : undefined,
           },
           {
@@ -219,7 +220,11 @@ export function BooksPage() {
       </article>
 
       <article className="book-card" id="adventures">
-        <div className="book-cover book-cover--image">
+        <Link
+          to="/core6adventure"
+          className="book-cover book-cover--image book-cover--link"
+          aria-label="Core6 Adventures — open product page"
+        >
           <img
             src="/adventures-cover.png"
             alt="Core6 Adventures cover"
@@ -227,10 +232,10 @@ export function BooksPage() {
             height={420}
             loading="lazy"
           />
-        </div>
+        </Link>
         <div className="book-card__body">
           <h2>
-            Core6 Adventures{' '}
+            <Link to="/core6adventure">Core6 Adventures</Link>{' '}
             <span className="tag-coming-soon">Coming soon</span>
           </h2>
           <p className="book-tagline">
@@ -262,6 +267,12 @@ export function BooksPage() {
             Together.
           </p>
           <div className="book-actions">
+            <Link
+              className="btn btn--primary btn--small"
+              to="/core6adventure"
+            >
+              Explore Core6 Adventures
+            </Link>
             <a className="btn btn--ghost btn--small" href="#newsletter">
               Notify me when it&apos;s out
             </a>

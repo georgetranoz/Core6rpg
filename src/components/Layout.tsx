@@ -42,9 +42,22 @@ export function Layout() {
   );
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     setIsNavOpen(false); // close drawer on route change
   }, [location.pathname]);
+
+  useEffect(() => {
+    const hash = location.hash.replace(/^#/, '');
+    if (hash) {
+      const t = window.setTimeout(() => {
+        document.getElementById(hash)?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }, 50);
+      return () => window.clearTimeout(t);
+    }
+    window.scrollTo(0, 0);
+  }, [location.pathname, location.hash]);
 
   // Lock body scroll when the mobile drawer is open so background doesn't scroll under it.
   useEffect(() => {

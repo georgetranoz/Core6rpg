@@ -23,6 +23,14 @@ export const lumenosUrl = 'https://www.LumenosCity.com';
 
 export const c6oglPdfUrl = import.meta.env.VITE_C6OGL_PDF_URL?.trim() || '';
 
+/** Core6 Adventures — free PDF when hosted (otherwise in-page #download). */
+export const adventuresPdfUrl =
+  import.meta.env.VITE_ADVENTURES_PDF_URL?.trim() || '';
+
+/** Physical Adventures softcover — falls back to general print store. */
+export const adventuresSoftcoverUrl =
+  import.meta.env.VITE_ADVENTURES_SOFTCOVER_URL?.trim() || printStoreUrl;
+
 /**
  * Newsletter form action URL. Plug in any provider that accepts a standard
  * HTML form POST with an `email` field — e.g. Buttondown

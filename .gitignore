@@ -4,3 +4,7 @@ dist
 *.local
 .env
 .env.*
+
+# Vite build cache artifacts
+vite.config.ts.timestamp-*
+vite.config.js.timestamp-*

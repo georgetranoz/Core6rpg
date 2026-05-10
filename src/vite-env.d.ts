@@ -7,6 +7,8 @@ interface ImportMetaEnv {
   readonly VITE_GM_GUIDE_PRINT_URL?: string;
   readonly VITE_GM_GUIDE_PDF_URL?: string;
   readonly VITE_C6OGL_PDF_URL?: string;
+  readonly VITE_ADVENTURES_PDF_URL?: string;
+  readonly VITE_ADVENTURES_SOFTCOVER_URL?: string;
 }
 
 interface ImportMeta {

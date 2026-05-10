@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { lumenosUrl } from '../config';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 export function UniversesPage() {
@@ -18,15 +17,6 @@ export function UniversesPage() {
       </p>
 
       <section className="setting-block">
-        <div className="setting-visual">
-          <img
-            src="/setting-lumenos.jpg"
-            alt="Lumenos City — gritty neon-lit cyberpunk combat in a rain-soaked Sydney alley"
-            loading="lazy"
-            width={1600}
-            height={500}
-          />
-        </div>
         <h2>Lumenos City — Modern. Cyberpunk-tinged. Supernatural.</h2>
         <p>
           Modern-day Sydney, rebranded after the AI overlord&apos;s reset.
@@ -39,22 +29,19 @@ export function UniversesPage() {
           Sentinel team raiding a werewolf gang&apos;s compound.
         </p>
         <p>
-          <a className="btn btn--primary btn--small" href={lumenosUrl}>
+          <Link className="btn btn--primary btn--small" to="/books#lumenos">
             Explore Lumenos City →
-          </a>
+          </Link>
         </p>
       </section>
 
+      <div className="universe-divider" aria-hidden="true">
+        <span className="universe-divider__cap" />
+        <span className="universe-divider__mark">◆</span>
+        <span className="universe-divider__cap" />
+      </div>
+
       <section className="setting-block">
-        <div className="setting-visual">
-          <img
-            src="/setting-artos.jpg"
-            alt="The World of Artos — an elven archer and a human mage stand together amid ancient ruins"
-            loading="lazy"
-            width={1600}
-            height={500}
-          />
-        </div>
         <h2>The World of Artos — High Fantasy. Crumbling Empires.</h2>
         <p>
           The cycle of birth, death, and rebirth has been shattered. The Empire of
@@ -68,16 +55,13 @@ export function UniversesPage() {
         <p className="book-meta">Artos campaign book in development.</p>
       </section>
 
+      <div className="universe-divider" aria-hidden="true">
+        <span className="universe-divider__cap" />
+        <span className="universe-divider__mark">◆</span>
+        <span className="universe-divider__cap" />
+      </div>
+
       <section className="setting-block">
-        <div className="setting-visual">
-          <img
-            src="/setting-mythic.jpg"
-            alt="Mythic Bound — a mercenary, a neon-armoured hunter, and a vampire silhouette in a dim warehouse"
-            loading="lazy"
-            width={1600}
-            height={500}
-          />
-        </div>
         <h2>Mythic Bound — Near-future. Monster hunting. With consequences.</h2>
         <p>
           Your <em className="game-term">Hero</em> is a contractor for the Van
@@ -93,7 +77,7 @@ export function UniversesPage() {
         <p className="book-meta">Mythic Bound campaign book in development.</p>
       </section>
 
-      <section className="content-section">
+      <section className="content-section universe-after-settings">
         <h2>Make Your Own</h2>
         <p>
           Every Core6 setting is published under our Open Game License. You can
